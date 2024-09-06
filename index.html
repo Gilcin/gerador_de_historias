@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Histórias Aleatórias</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="main-container">
+        <div class="container">
+            <div class="form-container">
+                <h1>Gerador de Histórias Aleatórias</h1>
+                <div class="form-group">
+                    <label for="theme">Escolha o Tema:</label>
+                    <select id="theme">
+                        <option value="fantasia">Fantasia</option>
+                        <option value="ficcao">Ficção Científica</option>
+                        <option value="misterio">Mistério</option>
+                        <option value="aventura">Aventura</option>
+                    </select>
+                </div>
+
+                <div class="mat-input">
+                    <label for="customCharacter">Adicionar Personagem:</label>
+                    <input type="text" id="customCharacter" placeholder="Ex. Kratos">
+                </div>
+                <div class="mat-input">
+                    <label for="customEvent">Adicionar Evento:</label>
+                    <input type="text" id="customEvent" placeholder="Ex. Viajou no Tempo">
+                </div>
+                <div class="mat-input">
+                    <label for="customItem">Adicionar Item:</label>
+                    <input type="text" id="customItem" placeholder="Ex. Um Machado">
+                </div>
+                <div class="mat-input">
+                    <label for="customCreature">Adicionar Criatura:</label>
+                    <input type="text" id="customCreature" placeholder="Ex. Um Java Legado">
+                </div>
+                
+                <div class="button-group">
+                    <button id="addCustom">Adicionar Personalizado</button>
+                    <button id="generate">Gerar História</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="story-container" class="story-container">
+            <div id="story" class="story-output"></div>
+        </div>
+    </div>
+    <script type="module" src="dados.js"></script>
+    <script type="module" src="script.js"></script>
+</body>
+</html>
