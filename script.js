@@ -1,4 +1,4 @@
-import { storyData, RARE_EVENTS, PLOT_TWISTS } from './dados.js';
+import { storyData } from './dados.js';
 
 class StoryGenerator {
     constructor() {
@@ -67,16 +67,12 @@ class StoryGenerator {
     
         // Templates de como as histórias podem ser montadas com os elementos selecionados aleatoriamente
         const templates = [
-            // `${character} com ${item} em ${setting}, ${event1}, e encontrou ${creature} em seu caminho. Logo em seguida, ${event2}.`,
-            // `${character} estava em ${setting}, onde usou ${item}, ${event1}. No entanto, ${creature} cercaram, mas continuou sem pensar duas vezes, ${event2}.`,
-            // `Enquanto estava em ${setting}, ${character} encontrou ${item}. ${event1}, mas foi interrompido por ${creature}. Depois, ${event2}, e então ${event3}.`,
-            // `Em uma jornada por ${setting}, ${character} carregava ${item}. ${event1}, e logo ${creature} cercaram. Após isso, ${event2}.`,
-            // `Durante uma missão em ${setting}, ${character} usou ${item} para ${event1}. No caminho, ${creature} apareceram, mas ${event2}, logo em seguida ${event3}.`,
             `${character}, usando ${item}, busca um tesouro escondido em ${setting}, mas é surpreendido por ${creature} durante uma tempestade furiosa.`,
             `${character}, em busca de ${item} capaz de derrotar ${creature}, participa de um torneio real em ${setting}, onde se depara com ${creature} guardiões da arma.`,
             `${character}, pilotando uma nave espacial antiga, busca ${item} capaz de deter uma invasão alienígena em ${setting} e ${event1}, mas é capturado por um alienígena telepata.`,
             `${character}, em busca de ${item} para curar um apocalipse zumbi, se refugia em ${setting}, onde é perseguido por ${creature} imunes à infecção.`,
             `${character}, atraído pelas promessas de riqueza e fama, decide desafiar as antigas lendas e adentrar ${setting}. Ao se aprofundar, descobre que é habitada por ${creature} e que a criatura que busca é, na verdade, ${creature}, um ser poderoso e protetor. Ao confrontar o guardião, se depara com a verdade sobre suas ações e deve escolher entre a glória pessoal e a preservação da natureza.`,
+            `${character}, atraída(o) por promessas de desvendar os mistérios de uma antiga civilização, decide desafiar as antigas lendas e adentrar ${setting}. Ao se aprofundar, descobre que é habitada por ${creature} e que a criatura que busca é, na verdade, um leviatã, um ser poderoso e protetor, que guarda ${item}, então ${event1} e ${event2}. E ao confrontar o guardião, se depara com a verdade sobre a destruição causada pela humanidade e deve escolher entre a fama mundial e a preservação do ecossistema. `,
         ];
     
         // Retorna uma história gerada aleatoriamente com base nos templates e elementos selecionados
