@@ -209,7 +209,7 @@ button:active {
 }
 
 body.fantasia {
-  background: url('locations/Fantasy_LE_auto_x2.jpg') no-repeat center center fixed;
+  background: url('locations/Fantasy_2_LE_auto_x2.jpg') no-repeat center center fixed;
   background-size: cover;
 }
 
@@ -225,5 +225,15 @@ body.misterio {
 
 body.ficcao {
   background: url('locations/alien_city_LE_auto_x2.jpg') no-repeat center center fixed;
+  background-size: cover;
+}
+
+body.terror {
+  background: url('locations/terror.jpg') no-repeat center center fixed;
+  background-size: cover;
+}
+
+body.epica {
+  background: url('locations/epic.jpg') no-repeat center center fixed;
   background-size: cover;
 }

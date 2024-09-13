@@ -1,72 +1,110 @@
-// Importa os dados das histórias de um arquivo externo.
-import { storyData } from './dados.js';
+import { storyData, PLOT_TWISTS } from './dados.js';
+import { connectors, connect, actions, consequences } from './conectors.js';
+
+document.addEventListener('DOMContentLoaded', () => {
+    const themeSelect = document.getElementById('theme');
+    
+    const changeBackground = (theme) => {
+        document.body.classList.remove('fantasia', 'aventura', 'misterio', 'ficcao', 'terror', 'epica');
+        if (theme) {
+            document.body.classList.add(theme);
+        }
+    };
+
+    themeSelect.addEventListener('change', (event) => {
+        changeBackground(event.target.value);
+    });
+
+    const initialTheme = themeSelect.value;
+    changeBackground(initialTheme);
+});
 
 class StoryGenerator {
     constructor() {
-        // Define um objeto para armazenar elementos personalizados que o usuário adicionar.
         this.customElements = {
-            characters: [], events: [], items: [], creatures: []
+            characters: [],
+            events: [],
+            items: [],
+            creatures: []
         };
+        this.lastGeneratedStory = '';
     }
 
-    // Função para selecionar um elemento aleatório de um array.
     getRandomElement(array) {
         return array[Math.floor(Math.random() * array.length)];
     }
 
     selectElementWithHighPreference(themeElements, customElements) {
         if (customElements.length > 0) {
-            // 80% de chance de selecionar um elemento personalizado
-            return Math.random() < 0.8 ? this.getRandomElement(customElements) : this.getRandomElement(themeElements);
+            return Math.random() < 0.9 ? this.getRandomElement(customElements) : this.getRandomElement(themeElements);
         }
         return this.getRandomElement(themeElements);
     }
 
-    // Função que gera uma história com base no tema selecionado.
     generateStory(theme) {
         const selectedTheme = storyData[theme];
     
-        // Usa a nova função de seleção para cada tipo de elemento
-        const character = this.selectElementWithHighPreference(selectedTheme.characters, this.customElements.characters);
-        const item = this.selectElementWithHighPreference(selectedTheme.items, this.customElements.items);
-        const creature = this.selectElementWithHighPreference(selectedTheme.creatures, this.customElements.creatures);
-        const scenario = this.getRandomElement(selectedTheme.scenarios);
-        const boss = this.getRandomElement(selectedTheme.boss);
-        
-        const events = this.selectEvents(selectedTheme.events, this.customElements.events, 3);
-        const [event1, event2, event3] = events;
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        const characters = shuffleArray([...selectedTheme.characters, ...this.customElements.characters]);
+        const items = shuffleArray([...selectedTheme.items, ...this.customElements.items]);
+        const creatures = shuffleArray([...selectedTheme.creatures, ...this.customElements.creatures]);
+        const events = shuffleArray([...selectedTheme.events, ...this.customElements.events]);
+        const scenarios = shuffleArray([...selectedTheme.scenarios]);
+        const bosses = shuffleArray([...selectedTheme.boss]);
+        const plotTwists = shuffleArray(PLOT_TWISTS);
     
+        const character = characters[0];
+        const item = items[0];
+        const creature = creatures[0];
+        const scenario = scenarios[0];
+        const boss = bosses[0];
+        const plotTwist = plotTwists[0];
+        const [event1, event2, event3] = events.slice(0, 3);
+
+        function getRandomConnector() {
+            return connectors[Math.floor(Math.random() * connectors.length)];
+        }
+
         const templates = [
-            `${character}, usando ${item}, busca um tesouro escondido em ${scenario}, mas é surpreendido por ${creature} durante uma tempestade furiosa.`,
-            `${character}, em busca de ${item} capaz de derrotar ${creature}, participa de um torneio real em ${scenario}, onde se depara com ${boss} guardião da arma.`,
-            `${character}, pilotando uma nave espacial antiga, busca ${item} capaz de deter uma invasão alienígena em ${scenario} e ${event1}, mas é capturado por um alienígena telepata.`,
-            `${character}, em busca de ${item} para curar um apocalipse zumbi, se refugia em ${scenario}, onde é perseguido por ${creature} imunes à infecção.`,
-            `${character}, atraído pelas promessas de riqueza e fama, decide desafiar as antigas lendas e adentrar ${scenario}. Ao se aprofundar, descobre que é habitada por ${creature} e que a criatura que busca é, na verdade, ${boss}, um ser poderoso e protetor. Ao confrontar o guardião, se depara com a verdade sobre suas ações e deve escolher entre a glória pessoal e a preservação da natureza.`,
-            `${character}, atraída(o) por promessas de desvendar os mistérios de uma antiga civilização, decide desafiar as antigas lendas e adentrar ${scenario}. Ao se aprofundar, descobre que é habitada por ${creature} e que a criatura que busca é, na verdade, ${boss}, um ser poderoso e protetor, que guarda ${item}, então ${event1} e ${event2}. E ao confrontar o guardião, se depara com a verdade sobre a destruição causada pela humanidade e deve escolher entre a fama mundial e a preservação do ecossistema. `,
+            `Em uma jornada épica, ${character} parte em busca de ${item} em ${scenario}. ${getRandomConnector()} ${event1} ${getRandomConnector()} um encontro inesperado com ${creature} muda tudo quando ${plotTwist}. Será que ${character} conseguirá superar ${boss} e completar sua missão? `,
+            
+            `O mundo de ${scenario} está em perigo, e apenas ${character} pode salvá-lo usando ${item}. ${getRandomConnector()} ${event1}. Com a ajuda improvável de ${creature}, nosso herói enfrenta ${boss} em uma batalha final cheia de reviravoltas. E naquele momento ${plotTwist}.  `,
+            
+            `${character} descobre um antigo segredo em ${scenario}: ${item} tem o poder de controlar ${creature}. ${getRandomConnector()} ${event1} ameaça revelar esse segredo para ${boss}. Em uma corrida contra o tempo, ${character} precisa ${event2} antes que seja tarde demais. `,
+            
+            `Uma profecia antiga fala de ${character}, ${item}, e um destino ligado a ${scenario}. Quando ${event1}, tudo parecia perdido. Mas com a orientação de ${creature} e enfrentando os desafios impostos por ${boss}, uma nova esperança surge. ${getRandomConnector()} ${event2} revela uma verdade chocante que muda tudo. `,
+        
+            `${character} herda ${item} de um ancestral misterioso. ${getRandomConnector()} descobre que o objeto é a chave para salvar ${scenario} de uma antiga maldição. Com ${creature} como aliado improvável, enfrenta ${boss} em uma batalha épica que decidirá o destino de todos. `,
+        
+            `Em ${scenario}, ${character} é escolhido para um torneio mágico. Armado apenas com ${item}, enfrenta desafios impossíveis. ${getRandomConnector()} ${event1} revela uma conspiração envolvendo ${boss}. Com a ajuda de ${creature}, nosso herói luta não só pela vitória, mas pela verdade. `,
+        
+            `${character} acorda em ${scenario} sem memória, apenas com ${item} em mãos. ${getRandomConnector()} ${event1} o que levou a uma jornada de autodescoberta. Enfrentando ${creature} e desvendando segredos, percebe que seu verdadeiro inimigo é ${boss}, uma parte esquecida de si mesmo. E que ${plotTwist}. `,
+        
+            `Numa era de caos em ${scenario}, ${character} descobre que ${item} é a chave para restaurar a ordem. ${getRandomConnector()} ${event1} que ameaçam destruir tudo. Aliando-se a ${creature}, nosso herói deve impedir ${boss} de usar o poder do caos para seus próprios fins nefastos. `
         ];
-    
-        return this.getRandomElement(templates);
+
+        const selectedTemplate = templates[Math.floor(Math.random() * templates.length)];
+        this.lastGeneratedStory = selectedTemplate;
+
+        return selectedTemplate;
     }
 
-    selectEvents(themeEvents, customEvents, count) {
-        let selectedEvents = [];
-        for (let i = 0; i < count; i++) {
-            if (customEvents.length > 0 && (Math.random() < 0.75 || selectedEvents.length >= customEvents.length)) {
-                // 75% de chance de selecionar um evento personalizado, ou se já selecionamos todos os personalizados
-                let event = this.getRandomElement(customEvents);
-                while (selectedEvents.includes(event) && customEvents.length > selectedEvents.length) {
-                    event = this.getRandomElement(customEvents);
-                }
-                selectedEvents.push(event);
-            } else {
-                let event = this.getRandomElement(themeEvents);
-                while (selectedEvents.includes(event)) {
-                    event = this.getRandomElement(themeEvents);
-                }
-                selectedEvents.push(event);
-            }
+    generateAdditionalParagraph() {
+        if (!this.lastGeneratedStory) {
+            return "Primeiro gere uma história antes de adicionar um parágrafo.";
         }
-        return selectedEvents;
+
+        const additionalParagraph = `${this.getRandomElement(connect)} nosso herói ${this.getRandomElement(actions)}, ${this.getRandomElement(consequences)}.`;
+        
+        this.lastGeneratedStory += " " + additionalParagraph;
+        return additionalParagraph;
     }
 
     addCustomElement(type, element) {
@@ -76,55 +114,47 @@ class StoryGenerator {
     }
 }
 
-
-// Função que exibe a história na página, imprimindo-a letra por letra (efeito de máquina de escrever).
-function displayStory(story) {
+function displayStory(story, append = false) {
     const storyOutput = document.getElementById('story');
-    storyOutput.textContent = ''; // Limpa o conteúdo anterior.
-
+    if (!append) {
+        storyOutput.textContent = '';
+    }
+    
     let i = 0;
     function typeWriter() {
         if (i < story.length) {
-            storyOutput.textContent += story.charAt(i); // Adiciona cada letra gradualmente.
+            storyOutput.textContent += story.charAt(i);
             i++;
-            setTimeout(typeWriter, 30); // Controla a velocidade de digitação.
+            setTimeout(typeWriter, 30);
         }
     }
-    typeWriter(); // Inicia o efeito de digitação.
+    typeWriter();
 }
 
-// Aguarda até que o documento esteja completamente carregado.
-document.addEventListener('DOMContentLoaded', () => {
-    const storyGenerator = new StoryGenerator(); // Cria uma instância da classe StoryGenerator.
-    const themeSelect = document.getElementById('theme'); // Obtém a seleção de tema no HTML.
+const storyGenerator = new StoryGenerator();
 
-    // Função para alterar o fundo da página de acordo com o tema selecionado.
-    function changeBackground(theme) {
-        document.body.classList.remove('fantasia', 'aventura', 'misterio', 'ficcao');
-        if (theme) document.body.classList.add(theme); // Adiciona a classe correspondente ao tema.
-    }
+function generateStory() {
+    const theme = document.getElementById('theme').value;
+    const story = storyGenerator.generateStory(theme);
+    displayStory(story);
+}
 
-    // Atualiza o fundo da página quando o usuário seleciona um tema.
-    themeSelect.addEventListener('change', (event) => changeBackground(event.target.value));
-    changeBackground(themeSelect.value); // Define o fundo inicial com o valor selecionado.
-
-    // Gera uma nova história quando o botão "generate" é clicado.
-    document.getElementById('generate').addEventListener('click', () => {
-        const theme = themeSelect.value; // Obtém o tema selecionado.
-        const story = storyGenerator.generateStory(theme); // Gera a história.
-        displayStory(story); // Exibe a história.
+function addCustomElement() {
+    const types = ['character', 'event', 'item', 'creature'];
+    types.forEach(type => {
+        const element = document.getElementById(`custom${type.charAt(0).toUpperCase() + type.slice(1)}`).value.trim();
+        if (element) {
+            storyGenerator.addCustomElement(`${type}s`, element);
+            document.getElementById(`custom${type.charAt(0).toUpperCase() + type.slice(1)}`).value = '';
+        }
     });
+}
 
-    // Adiciona elementos personalizados quando o botão "addCustom" é clicado.
-    document.getElementById('addCustom').addEventListener('click', () => {
-        // Para cada tipo de elemento (character, event, item, creature), adiciona o valor inserido pelo usuário.
-        ['character', 'event', 'item', 'creature'].forEach(type => {
-            const input = document.getElementById(`custom${type.charAt(0).toUpperCase() + type.slice(1)}`);
-            const element = input.value.trim(); // Remove espaços em branco do início e do fim.
-            if (element) {
-                storyGenerator.addCustomElement(`${type}s`, element); // Adiciona o elemento ao gerador.
-                input.value = ''; // Limpa o campo de entrada após a adição.
-            }
-        });
-    });
-});
+function generateAdditionalParagraph() {
+    const additionalParagraph = storyGenerator.generateAdditionalParagraph();
+    displayStory(additionalParagraph, true);
+}
+
+document.getElementById('generate').addEventListener('click', generateStory);
+document.getElementById('addCustom').addEventListener('click', addCustomElement);
+document.getElementById('addParagraph').addEventListener('click', generateAdditionalParagraph);

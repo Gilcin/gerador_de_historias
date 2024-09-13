@@ -1,3 +1,4 @@
+
 export const storyData = {
     fantasia: {
         creatures: [
@@ -204,21 +205,66 @@ export const storyData = {
             'documentou um fenômeno natural raro',
             'liderou uma expedição de resgate'
         ]
+    },
+
+    terror: {
+        creatures: [
+        'zumbis', 'vampiros', 'lobisomens', 'fantasmas vingativos', 'monstros marinhos', 'criaturas das sombras',
+        'mutantes', 'alienígenas', 'deambulações', 'entidades cósmicas', 'espíritos malignos', 'criaturas abissais'
+        ],
+        boss: [
+        'O Necromante', 'A Bruxa Maligna', 'O Demônio', 'O Monstro Sob a Cama', 'O Culto Sombrio',
+        'O Assassino em Série', 'O Entidade Extraterrestre', 'O Ser das Trevas', 'O Devorador de Almas', 'O Entidade Insone'
+        ],
+        items: [
+        'um diário com profecias macabras', 'uma boneca amaldiçoada', 'uma fita de vídeo com imagens perturbadoras',
+        'uma chave para um lugar proibido', 'um livro de rituais satânicos', 'uma arma amaldiçoada',
+        'uma máscara que distorce a realidade', 'uma caixa de música que toca melodias sinistras', 'um espelho que mostra o seu pior medo'
+        ],
+        characters: [
+        'um detetive obscuro', 'uma médium perturbada', 'um padre exorcista', 'um sobrevivente traumatizado',
+        'um cientista louco', 'um assassino psicopata', 'uma criança com poderes sobrenaturais', 'um monstro humano', 'um fantasma vingativo'
+        ],
+        scenarios: [
+        'uma floresta abandonada', 'um labirinto subterrâneo', 'um campo de batalha', 'uma cidade abandonada',
+        'um mundo escondido', 'um templo abandonado', 'um túnel subterrâneo', 'uma ilha abandonada', 'um lugar isolado no meio do nada'
+        ],
+        events: [
+        'descobriu um segredo obscuro sobre sua família', 'foi possuído por uma força maligna',
+        'testemunhou um evento sobrenatural', 'ficou preso em um pesadelo', 'foi perseguido por uma criatura desconhecida',
+        'descobriu um ritual antigo', 'foi amaldiçoado', 'assistiu a um assassinato brutal', 'participou de um culto secreto'
+        ]
+    },
+
+    epica: {
+        creatures: [
+        'dragões ancestrais', 'gigantes colossais', 'fênix renascidas', 'minotauros lendários', 'harpias proféticas',
+        'centauros sábios', 'sereias encantadoras', 'unicórnios puros', 'grifos guardiões', 'esfínxes enigmáticas'
+        ],
+        boss: [
+        'O Rei Demônio', 'A Rainha das Bruxas', 'O Deus da Guerra', 'O Titã Primordial', 'O Mago Negro',
+        'O Dragão Ancestral', 'O Lich Imortal', 'O Gigante de Gelo', 'O Senhor dos Mares', 'A Deusa da Destruição'
+        ],
+        items: [
+        'Uma espada forjada no coração de uma estrela', 'Um escudo feito da pele de um dragão', 'Um elmo da invisibilidade',
+        'Um anel que concede poderes divinos', 'Uma lança que atravessa qualquer armadura', 'Um livro de feitiços proibidos',
+        'Uma armadura que concede imortalidade', 'Uma coroa que controla os elementos', 'Uma bota que permite voar'
+        ],
+        characters: [
+        'Um guerreiro invencível', 'Um mago poderoso', 'Um arqueiro lendário', 'Um príncipe exilado', 'Uma princesa guerreira',
+        'Um bardo inspirador', 'Um clérigo devoto', 'Um ladrão habilidoso', 'Um anão ferreiro', 'Um elfo arqueiro'
+        ],
+        scenarios: [
+        'Um reino medieval em guerra', 'Uma cidade flutuante nos céus', 'Um continente perdido', 'Um labirinto subterrâneo',
+        'Um castelo mágico', 'Uma floresta ancestral', 'Um deserto infinito', 'Uma montanha sagrada', 'Um oceano desconhecido'
+        ],
+        events: [
+        'Uma profecia que mudará o destino do mundo', 'Uma invasão de outro reino', 'Uma rebelião contra um tirano',
+        'Uma busca por um artefato poderoso', 'Um romance proibido entre duas raças', 'Uma batalha épica entre exércitos',
+        'Uma descoberta arqueológica que revela um segredo antigo', 'Uma catástrofe natural que ameaça o mundo', 'Uma aliança entre inimigos'
+        ]
     }
 };
-
-export const RARE_EVENTS = [
-    'descobriu uma joia mística que concede um desejo',
-    'foi transportado para um mundo alternativo',
-    'recebeu a visita de um deus ancestral',
-    'ganhou poderes imensos por um breve período',
-    'encontrou um artefato que pode mudar o destino do reino',
-    'testemunhou o nascimento de uma nova estrela',
-    'descobriu a cura para uma doença incurável',
-    'encontrou um portal para outra dimensão',
-    'foi escolhido como campeão de uma profecia antiga',
-    'descobriu uma civilização subterrânea avançada'
-];
 
 export const PLOT_TWISTS = [
     'descobriu que o aliado era na verdade um traidor',
